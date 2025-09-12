@@ -350,7 +350,7 @@ local Window = Fluent:CreateWindow({
     Size = UDim2.fromOffset(580, 460),
     Acrylic = true, -- The blur may be detectable, setting this to false disables blur entirely
     Theme = "Dark",
-    MinimizeKey = Enum.KeyCode.LeftControl -- Used when theres no MinimizeKeybind
+    MinimizeKey = Enum.KeyCode.P -- Used when theres no MinimizeKeybind
 })
 
 --Fluent provides Lucide Icons https://lucide.dev/icons/ for the tabs, icons are optional
@@ -886,7 +886,7 @@ ImageButton.MouseButton1Click:Connect(function()
 
     -- Simulate key presses
     local VirtualInputManager = game:GetService("VirtualInputManager")
-   VirtualInputManager:SendKeyEvent(true,"LeftControl",false,game)
+   VirtualInputManager:SendKeyEvent(true,"P",false,game)
 
 end)
 

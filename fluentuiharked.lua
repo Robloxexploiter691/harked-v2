@@ -889,3 +889,5 @@ ImageButton.MouseButton1Click:Connect(function()
    VirtualInputManager:SendKeyEvent(true,"LeftControl",false,game)
 
 end)
+
+Window:SelectTab(1)

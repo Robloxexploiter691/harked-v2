@@ -366,7 +366,7 @@ local Tabs = {
         Title = "Input",
         Default = "",
         Placeholder = "Input Players Name",
-        Numeric = true, -- Only allows numbers
+        Numeric = false, -- Only allows numbers
         Finished = false, -- Only calls callback when you press enter
         Callback = function(Value)
             target = Value
@@ -891,3 +891,4 @@ ImageButton.MouseButton1Click:Connect(function()
 end)
 
 Window:SelectTab(1)
+

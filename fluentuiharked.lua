@@ -1,3 +1,4 @@
+local Players = game:GetService("Players")
 function splitString(str,delim)
 	local broken = {}
 	if delim == nil then delim = "," end
@@ -886,4 +887,5 @@ ImageButton.MouseButton1Click:Connect(function()
     -- Simulate key presses
     local VirtualInputManager = game:GetService("VirtualInputManager")
    VirtualInputManager:SendKeyEvent(true,"LeftControl",false,game)
+
 end)

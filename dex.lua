@@ -11,7 +11,7 @@ local function delete(item)
 		if game.Players.LocalPlayer:FindFirstChild("deletebind") then
 			pcall(game.Players.LocalPlayer.deletebind:Fire(item))
 		else
-			pcall(getgenv().HookedRM:FireServer(item))
+			pcall(getgenv().vulnremote:FireServer(item))
 		end
 	end)
 end

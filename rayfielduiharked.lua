@@ -808,7 +808,7 @@ local Button = Tab:CreateButton({
    Callback = function()
     local players = getPlayer(target, LocalPlayer)
 	for _, plr in ipairs(players) do
-		local char = plr.Character
+		local char = players.Character
 		if not char then continue end
 
 		local step = 0
@@ -955,4 +955,5 @@ Players.LocalPlayer.CharacterAdded:connect(function()
 		delete(mouse.Target)
 	end)
 	game:GetService("StarterGui"):SetCoreGuiEnabled('Backpack', true)
+
 end)

@@ -350,9 +350,9 @@ end
 local delete = function(obj)
 	pcall(function()
 		if LocalPlayer:FindFirstChild("deletebind") then
-			LocalPlayer.deletebind:Fire(item)
+			LocalPlayer.deletebind:Fire(obj)
 		else
-			shared.vulnremote:FireServer(item)
+			shared.vulnremote:FireServer(obj)
 		end
 	end)
 end
@@ -899,4 +899,5 @@ Players.LocalPlayer.CharacterAdded:connect(function()
 		delete(mouse.Target)
 	end)
 	game:GetService("StarterGui"):SetCoreGuiEnabled('Backpack', true)
+
 end)

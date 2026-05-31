@@ -347,12 +347,12 @@ function getPlayer(list,speaker)
 	return foundNames
 end
 
-local delete = function(obj)
+local delete = function(obj: Instance)
 	pcall(function()
 		if LocalPlayer:FindFirstChild("deletebind") then
 			LocalPlayer.deletebind:Fire(obj)
 		else
-			shared.vulnremote:FireServer(obj)
+			getgenv().vulnremote:FireServer(obj)
 		end
 	end)
 end
@@ -899,5 +899,4 @@ Players.LocalPlayer.CharacterAdded:connect(function()
 		delete(mouse.Target)
 	end)
 	game:GetService("StarterGui"):SetCoreGuiEnabled('Backpack', true)
-
 end)

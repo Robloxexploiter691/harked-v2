@@ -226,6 +226,7 @@ local script = G2L["7"];
 			task.wait(5)
 			stuff.mgui:Destroy()
 		else
+			deletebind:Destroy()		
 			stuff.tbtext.Text = "No backdoor found."
 			task.wait(10)
 			stuff.mgui:Destroy()

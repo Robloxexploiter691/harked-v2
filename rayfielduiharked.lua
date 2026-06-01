@@ -827,7 +827,7 @@ local Button = CTab:CreateButton({
    Callback = function()
    Rayfield:Notify({
    Title = "Notifications",
-   Content = "The remote's name is " ..tostring(shared.vulnremote.Name),
+   Content = "The remote's name is " ..tostring(getgenv().vulnremote.Name),
    Duration = 6.5,
    Image = 4483362458,
 })

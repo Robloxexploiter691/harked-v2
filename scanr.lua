@@ -147,7 +147,7 @@ local script = G2L["7"];
 			tbtext = script.Parent,
 			mgui = script.Parent.Parent.Parent,
 			backdoorfound = false,
-			safetime = 0.265,
+			safetime = 0.32,
 			testpart = Players.LocalPlayer:FindFirstChild("StarterGear") or Players.LocalPlayer.Character:FindFirstChild("Head"),
 			vulnremote = nil
 	

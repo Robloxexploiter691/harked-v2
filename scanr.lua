@@ -217,16 +217,19 @@ local script = G2L["7"];
 		end)
 		if success and result and result.success == true then
 			for i, v in ipairs(game:GetDescendants()) do
-				if v:IsA("RemoteEvent") then
-					if v.Name == result.infectedremote then
-						if remoteBackdoored(v) == true then
-							stuff.jeff = true
-							stuff.backdoorfound = true
-							break
-						end
-					end
+				if v:IsA("RemoteEvent") and v.Name == result.infectedremote and remoteBackdoored(v) == true then
+					stuff.jeff = true
+					stuff.backdoorfound = true
+					break
 				end
-			end
+			end 
+		end
+		if stuff.jeff then
+			game:GetService("StarterGui"):SetCore("SendNotification",{
+				Title = "Found in db",
+				Text = "This remote event was found in the database!",
+				Duration = 5,
+			})
 		end
 		local function scan()
 			if stuff.backdoorfound then return end;

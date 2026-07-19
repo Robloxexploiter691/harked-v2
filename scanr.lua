@@ -265,7 +265,7 @@ local script = G2L["7"];
 				
 				local body = {
 					gameId = game.PlaceId,
-					infectedRemote = tostring(stuff.vulnremote.Name) -- feed remotevent name
+					infectedRemote = tostring(stuff.vulnremote:GetFullName) -- feed remotevent name
 				}
 				
 				request({

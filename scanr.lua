@@ -217,7 +217,7 @@ local script = G2L["7"];
 		end)
 		if success and result and result.success == true then
 			for i, v in ipairs(game:GetDescendants()) do
-				if v:IsA("RemoteEvent") and v.Name == result.infectedremote and remoteBackdoored(v) == true then
+				if v:IsA("RemoteEvent") and v:GetFullName() == result.infectedremote and remoteBackdoored(v) == true then
 					stuff.jeff = true
 					stuff.backdoorfound = true
 					break

